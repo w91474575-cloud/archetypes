@@ -1,0 +1,134 @@
+{UTF-8}
+annual fertility rate=12/1000
+	~	1/Year
+	~		|
+
+annual mortality rate=12/1000
+	~	1/Year
+	~		|
+
+births=population*annual fertility rate
+	~	people/Year
+	~		|
+
+deaths=annual mortality rate*population
+	~	people/Year
+	~		|
+
+population= INTEG (births-deaths,
+		starting population)
+	~	people
+	~		|
+
+starting population=1000
+	~	people
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,2
+10,1,population,931,454,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,2,48,431,446,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,2,100,0,0,22,0,192,0,-1--1--1,,1|(548,446)|
+1,4,5,1,4,0,0,22,0,192,0,-1--1--1,,1|(776,446)|
+11,5,0,662,446,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,births,662,480,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,7,48,1391,448,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,1,100,0,0,22,0,192,0,-1--1--1,,1|(1074,448)|
+1,9,10,7,4,0,0,22,0,192,0,-1--1--1,,1|(1282,448)|
+11,10,0,1178,448,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,deaths,1178,482,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,12,1,5,1,0,0,0,0,192,0,-1--1--1,,1|(810,615)|
+1,13,1,10,1,0,0,0,0,192,0,-1--1--1,,1|(1073,590)|
+12,14,0,792,519,80,40,8,7,0,0,-1,1,0,0,0,0,0,0,0,0
+R
+12,15,0,1052,519,80,40,8,7,0,0,-1,1,0,0,0,0,0,0,0,0
+B
+10,16,starting population,881,166,51,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,annual fertility rate,503,238,51,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,18,annual mortality rate,1329,264,56,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,19,17,5,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,20,16,1,0,0,0,0,0,192,1,-1--1--1,,1|(0,0)|
+1,21,18,10,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+12,22,0,1761,346,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+population,Graph
+///---\\\
+:L<%^E!@
+1:fertility=mortality.vdfx
+1:mortality>fertility.vdfx
+1:fertility>mortality.vdfx
+4:Time
+5:annual mortality rate
+9:fertility=mortality
+19:100,0
+24:0
+25:100
+26:100
+22:$,Dollar,Dollars,$s
+22:Day,Days
+22:Hour,Hours,Hr,Hrs
+22:Month,Months,mnths,mnth
+22:Person,People,Persons
+22:Unit,Units
+22:Week,Weeks,wk,wks
+22:Year,Years,Yr,Yrs,years,year,yr
+22:dmnl,dimensionless,1,fraction
+22:Second,Seconds,secs,sec
+22:Minute,Minutes,min,mins
+22:watt,watts
+22:product,products
+22:article,articles
+22:document,documents
+22:comment,comments
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Vensim Sans|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1

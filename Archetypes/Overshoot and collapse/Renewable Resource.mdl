@@ -1,0 +1,234 @@
+{UTF-8}
+resource depreciation=(resource/resource lifespan)*effect of resource crowding on depreciation
+	~	resource/Year
+	~		|
+
+resource lifespan=20
+	~	years
+	~		|
+
+effect of resource crowding on depreciation = WITH LOOKUP (resource/carrying capacity\
+		,
+		([(0,0)-(16,2)],(0,1), (5.06024,1.0317), (8.81928,1.17579), (12.8193,1.42363), (16,\
+		2)))
+	~	1
+	~		|
+
+resource= INTEG (regeneration-extraction-resource depreciation,
+		initial resource)
+	~	resource
+	~		|
+
+carrying capacity=2000
+	~	resource
+	~		|
+
+profit per year=extraction*price-capital charge rate per year*capital
+	~	capital/Year
+	~		|
+
+capital charge rate per year=0.1
+	~	1/Year
+	~		|
+
+capital= INTEG (investment-depreciation,
+		initial capital)
+	~	capital
+	~		|
+
+capital lifetime=20
+	~	years
+	~		|
+
+depreciation=capital/capital lifetime
+	~	capital/Year
+	~		|
+
+extraction=capital*resource yield per capital per year
+	~	resource/Year
+	~		|
+
+growth goal capital per year=capital*growth rate per year
+	~	capital/Year
+	~		|
+
+growth rate per year=0.1
+	~	1/Year
+	~		|
+
+initial capital=6
+	~	capital
+	~		|
+
+initial resource=1000
+	~	resource
+	~		|
+
+investment=min(growth goal capital per year,profit per year)
+	~	capital/Year
+	~		|
+
+price = WITH LOOKUP (resource yield per capital per year,
+		([(0,0)-(1,10)],(0,10), (0.207831,6.16715), (0.403614,3.54467), (0.60241,2.42075), \
+		(0.804217,1.61383), (1,1.26801)))
+	~	capital/resource
+	~		|
+
+regeneration=regeneration rate per year*resource
+	~	resource/Year
+	~		|
+
+regeneration rate per year=0.1
+	~	1/Year
+	~		|
+
+resource yield per capital per year = WITH LOOKUP (resource,
+		([(0,0)-(16000,1)],(0,0), (250,0.5), (500,0.75), (750,0.825), (1000,0.8625), (2000,\
+		0.9), (4000,0.925), (8000,0.94782), (16000,0.96)))
+	~	resource/capital/Year
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 400
+	~	Year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Year [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,2
+10,1,resource,727,371,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,2,48,1014,371,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,1,100,0,0,22,0,192,0,-1--1--1,,1|(827,371)|
+1,4,5,2,4,0,0,22,0,192,0,-1--1--1,,1|(949,371)|
+11,5,0,888,371,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,extraction,888,405,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,7,48,409,368,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,7,100,0,0,22,0,192,0,-1--1--1,,1|(481,368)|
+1,9,10,1,4,0,0,22,0,192,0,-1--1--1,,1|(618,368)|
+11,10,0,550,368,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,regeneration,550,402,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,12,1,10,1,0,0,0,0,192,0,-1--1--1,,1|(632,463)|
+10,13,capital,886,-48,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,14,48,1177,-48,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,15,17,13,100,0,0,22,0,192,0,-1--1--1,,1|(987,-48)|
+1,16,17,14,4,0,0,22,0,192,0,-1--1--1,,1|(1111,-48)|
+11,17,0,1049,-48,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,18,depreciation,1049,-14,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,19,48,584,-43,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,20,22,19,100,0,0,22,0,192,0,-1--1--1,,1|(652,-43)|
+1,21,22,13,4,0,0,22,0,192,0,-1--1--1,,1|(781,-43)|
+11,22,0,717,-43,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,23,investment,717,-9,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,24,13,17,1,0,0,0,0,192,0,-1--1--1,,1|(973,-97)|
+10,25,growth rate per year,655,-292,54,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,26,growth goal capital per year,790,-160,60,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,27,25,26,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,28,26,22,1,0,0,0,0,192,0,-1--1--1,,1|(707,-107)|
+1,29,13,26,1,0,0,0,0,192,0,-1--1--1,,1|(877,-109)|
+1,30,13,5,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,31,resource yield per capital per year,754,223,65,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,32,1,31,1,0,0,0,0,192,0,-1--1--1,,1|(724,289)|
+1,33,31,5,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,34,initial capital,1008,-223,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,35,capital lifetime,1171,68,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,36,initial resource,644,511,26,15,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,37,36,1,0,0,0,0,0,192,1,-1--1--1,,1|(0,0)|
+1,38,34,13,0,0,0,0,0,192,1,-1--1--1,,1|(0,0)|
+1,39,35,17,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,40,price,578,154,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,31,40,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,42,profit per year,673,79,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,40,42,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,44,5,42,1,0,0,0,0,192,0,-1--1--1,,1|(802,185)|
+1,45,13,42,1,0,0,0,0,192,0,-1--1--1,,1|(793,73)|
+1,46,42,23,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,47,regeneration rate per year,396,499,57,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,48,47,10,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,49,capital charge rate per year,250,87,50,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,50,49,42,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,51,carrying capacity,611,612,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,52,48,1025,462,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,53,55,1,100,0,0,22,0,192,0,-1--1--1,,1|(852,371)|
+1,54,55,52,4,0,0,22,0,192,0,-1--1--1,,1|(936,462)|
+11,55,0,852,462,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,56,resource depreciation,852,496,58,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,57,resource lifespan,1039,566,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,58,effect of resource crowding on depreciation,836,613,66,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,59,1,58,1,0,0,0,0,192,0,-1--1--1,,1|(769,524)|
+1,60,51,58,1,0,0,0,0,192,0,-1--1--1,,1|(742,654)|
+1,61,58,56,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,62,57,56,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,63,1,56,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+///---\\\
+:L<%^E!@
+1:current.vdfx
+4:Time
+5:effect of resource crowding on depreciation
+9:current
+19:100,0
+24:0
+25:400
+26:400
+22:$,Dollar,Dollars,$s
+22:Day,Days
+22:Hour,Hours,Hr,Hrs
+22:Month,Months,mnths,mnth
+22:Person,People,Persons
+22:Unit,Units
+22:Week,Weeks,wk,wks
+22:Year,Years,Yr,Yrs,years,year
+22:dmnl,dimensionless,1,fraction
+22:Second,Seconds,secs,sec
+22:Minute,Minutes,min,mins
+22:watt,watts
+22:product,products
+22:article,articles
+22:document,documents
+22:comment,comments
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Vensim Sans|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1

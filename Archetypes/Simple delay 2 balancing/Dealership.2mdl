@@ -1,0 +1,249 @@
+{UTF-8}
+sales=MIN (customer demand cars per day*effect of inventory on sales, inventory/TIME STEP\
+		)
+	~	cars/Day
+	~		|
+
+effect of inventory on sales = WITH LOOKUP (MIN(inventory/customer demand cars per day\
+		, 10),
+		([(0,0)-(10,1)],(0,0), (2,0.8), (5,1), (10,1)))
+	~	1
+	~		|
+
+customer demand cars per day=delay fixed (ending customer demand cars per day,days to demand change\
+		,starting customer demand cars per day)
+	~	cars/Day
+	~		|
+
+days to demand change=25
+	~	days
+	~		|
+
+ending customer demand cars per day=22
+	~	cars/Day
+	~		|
+
+starting customer demand cars per day=20
+	~	cars/Day
+	~		|
+
+deliveries=delay fixed (orders to factory,delivery delay,starting customer demand cars per day\
+		)
+	~	cars/Day
+	~		|
+
+delivery delay=5
+	~	days
+	~		|
+
+desired days to sell out=10
+	~	days
+	~		|
+
+desired inventory=desired days to sell out*percieved sales
+	~	cars
+	~		|
+
+discrepancy between desired and actual inventory=desired inventory-inventory
+	~	cars
+	~		|
+
+inventory= INTEG (deliveries-sales,
+		starting cars in inventory)
+	~	cars
+	~		|
+
+orders to factory=max(discrepancy between desired and actual inventory/response delay\
+		+percieved sales, 0)
+	~	cars/Day
+	~		|
+
+perception delay=5
+	~	days
+	~		|
+
+percieved sales=smooth(sales,perception delay)
+	~	cars/Day
+	~		|
+
+response delay=3
+	~	days
+	~		|
+
+starting cars in inventory=200
+	~	cars
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,100,2
+10,1,inventory,639,417,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,2,48,1070,417,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,1,100,0,0,22,0,192,0,-1--1--1,,1|(775,417)|
+1,4,5,2,4,0,0,22,0,192,0,-1--1--1,,1|(969,417)|
+11,5,0,872,417,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,sales,872,451,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,7,48,201,416,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,7,100,0,0,22,0,192,0,-1--1--1,,1|(303,416)|
+1,9,10,1,4,0,0,22,0,192,0,-1--1--1,,1|(500,416)|
+11,10,0,402,416,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,deliveries,402,450,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,12,starting customer demand cars per day,711,139,60,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,13,starting cars in inventory,580,240,64,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,14,percieved sales,922,597,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,15,perception delay,1144,692,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,16,desired inventory,671,600,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,discrepancy between desired and actual inventory,514,527,56,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,18,orders to factory,284,498,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,19,response delay,159,643,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,20,delivery delay,220,230,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,21,20,10,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,22,13,1,0,0,0,0,0,192,1,-1--1--1,,1|(0,0)|
+1,23,15,14,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,24,19,18,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,25,5,14,1,0,0,0,0,192,0,-1--1--1,,1|(919,521)|
+1,26,14,18,1,0,0,0,0,192,0,-1--1--1,,1|(617,737)|
+1,27,14,16,1,0,0,0,0,192,0,-1--1--1,,1|(822,610)|
+1,28,16,17,1,0,0,0,0,192,0,-1--1--1,,1|(560,591)|
+1,29,1,17,1,0,0,0,0,192,0,-1--1--1,,1|(606,492)|
+1,30,17,18,1,0,0,0,0,192,0,-1--1--1,,1|(400,537)|
+1,31,18,10,1,0,0,0,0,192,0,-1--1--1,,1|(290,436)|
+10,32,desired days to sell out,760,882,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,33,32,16,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,34,12,10,1,0,0,0,0,192,1,-1--1--1,,1|(489,244)|
+10,35,ending customer demand cars per day,936,109,56,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,36,customer demand cars per day,828,219,60,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,37,days to demand change,1024,217,62,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,38,12,36,0,0,0,0,0,192,1,-1--1--1,,1|(0,0)|
+1,39,35,36,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,40,37,36,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,41,36,5,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,42,effect of inventory on sales,751,327,56,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,1,42,1,0,0,0,0,192,0,-1--1--1,,1|(672,346)|
+1,44,42,5,1,0,0,0,0,192,0,-1--1--1,,1|(829,345)|
+1,45,36,42,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,46,1,6,1,0,0,0,0,192,0,-1--1--1,,1|(755,534)|
+10,47,TIME STEP,1276,232,36,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,48,47,5,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+12,49,0,350,948,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+customer demand cars per day,Graph
+12,50,0,1691,375,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+perception_delay_change
+12,51,0,1691,893,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+response_delay_change
+///---\\\
+:GRAPH perception_delay_change
+:TITLE inventory - changing perception delay
+:SCALE
+:VAR inventory
+:DATASET Step-Up demand, perception delay=2
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Constant demand
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Step-Up demand, perception delay=5
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Step-Up demand, perception delay=10
+:LINE-WIDTH 1
+
+:GRAPH response_delay_change
+:TITLE inventory - changing response delay
+:SCALE
+:VAR inventory
+:DATASET Constant demand
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Step-Up demand, response delay=3
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Step-Up demand, response delay=2
+:LINE-WIDTH 1
+:VAR inventory
+:DATASET Step-Up demand, response delay=6
+:LINE-WIDTH 1
+:L<%^E!@
+1:current.vdfx
+1:Step-Up demand, response delay=6.vdfx
+1:Step-Up demand, response delay=2.vdfx
+1:Step-Up demand, perception delay=10.vdfx
+1:Step-Up demand, perception delay=2.vdfx
+1:Step-Up demand, response delay=3.vdfx
+1:Step-Up demand, perception delay=5.vdfx
+1:Constant demand.vdfx
+4:Time
+5:perception delay
+9:current
+19:100,0
+24:0
+25:100
+26:100
+22:$,Dollar,Dollars,$s
+22:Day,Days
+22:Hour,Hours,Hr,Hrs
+22:Month,Months,mnths,mnth
+22:Person,People,Persons
+22:Unit,Units
+22:Week,Weeks,wk,wks
+22:Year,Years,Yr,Yrs,years,year,yr
+22:dmnl,dimensionless,1,fraction
+22:Second,Seconds,secs,sec
+22:Minute,Minutes,min,mins
+22:watt,watts
+22:product,products
+22:article,articles
+22:document,documents
+22:comment,comments
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Vensim Sans|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1
